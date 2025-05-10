@@ -1,0 +1,4 @@
+gradio 
+requests
+
+# Install the dependencies when you deploy the code to Hugging Face or any cloud environment
