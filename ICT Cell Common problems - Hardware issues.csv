@@ -1,0 +1,18 @@
+Question,Answer
+not able to connect to the university's wireless network(wi-fi),provide CA certficates for all phones
+Receiving error code while updating ,Run windows update troubleshooter and follow the instructions.
+Windows crash all deleted Apps,Use a hard drive where all the installations are present (all necessary addons for KIIT)
+Some of my keyboard keys are not working,"1. Try reinstalling the keyboard driver.  2. If unsolved, reset the motherboard by long press of the power button"
+The option to connect to WiFi has disappeared,Uninstall the WiFi driver and then restart the laptop
+My laptop shut down suddenly and I lost all my tabs on chrome,Ctrl+shift+T
+Laptop produces no sound,Update  or reinstall  the audio drivers
+"Issue while shifting tabs, tabs got freeze ","Try to restart the system, and delete the junk files or any harmful 3rd party applications."
+Whenever I open my laptop a lot of apps auto start and it makes my device slow,Go to task manager->Startup apps and disable apps that you do not require
+Forgot KIIT WIFI PASSWORD,ict would send new details with confirmation from User
+change of Phone numbers as old one is unusable,Changing phone number algorithm would be set up to identify true identity
+forgot user credentials of the university mail-id,ict would change the password and give you the choice to reset the password
+Windows had ransomware attack,Format the Complete Pcand install all previous software with help of external hard drive
+ ict tasks are done manually by people sitting,can replace with ai thus automating our tasks online reliving us to go there physically
+Slows down the speed of laptop,needs to delete the temporary files and if it doesn't work needs to format the PC
+"how to do dual booting system without external device conectivity,How to trace  the lost laptops",needs external bootable device
+App got crashed or freeze during progress,"Try Force quit, otherwise restart the system."
