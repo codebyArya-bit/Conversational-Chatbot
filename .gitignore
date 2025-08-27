@@ -8,8 +8,32 @@ __pycache__/
 .env
 *.sqlite3
 
+# Cache files
+.cache/
+*.npy
+*.pkl
+*.pickle
+
 # Jupyter
 .ipynb_checkpoints
 
 # VSCode
 .vscode/
+
+# IDE files
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
