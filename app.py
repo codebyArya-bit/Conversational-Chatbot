@@ -61,22 +61,30 @@ except Exception as e:
         "sentence-transformers is required. Install with: pip install sentence-transformers"
     ) from e
 
-# OpenAI is optional; we degrade to direct FAQ answers if no key.
+# OpenRouter API Key for chat functionality
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 OPENAI_KEY = os.environ.get("OPENAI_API_KEY")
 CLIENT = None
-if OPENAI_KEY:
+if OPENROUTER_API_KEY or OPENAI_KEY:
     try:
         try:
             from openai import OpenAI  # type: ignore
         except ImportError:
             raise ImportError("OpenAI is required. Install with: pip install openai")
-        CLIENT = OpenAI(api_key=OPENAI_KEY)
+        # Use OpenRouter if available, otherwise fallback to OpenAI
+        if OPENROUTER_API_KEY:
+            CLIENT = OpenAI(
+                api_key=OPENROUTER_API_KEY,
+                base_url="https://openrouter.ai/api/v1"
+            )
+        else:
+            CLIENT = OpenAI(api_key=OPENAI_KEY)
     except Exception:
         CLIENT = None
 
 # ---- Config ----
 class Config:
-    SECRET_KEY = os.environ.get("FLASK_SECRET_KEY", "change-this-in-prod")
+    SECRET_KEY = os.environ.get("SECRET_KEY") or os.environ.get("FLASK_SECRET_KEY", "change-this-in-prod")
     FAQ_CSV_PATH = os.environ.get("FAQ_CSV_PATH", "ICT Cell Common problems - Hardware issues.csv")
     EMB_PATH = os.path.join(".cache", "faq_embeddings.npy")
     Q_PATH = os.path.join(".cache", "faq_questions.json")
@@ -758,4 +766,6 @@ if __name__ == '__main__':
         log.warning("Warning: Could not load FAQ data")
     
     # Run the Flask app
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    debug_mode = os.environ.get('FLASK_ENV', 'development') == 'development'
+    app.run(debug=debug_mode, host='0.0.0.0', port=port)
