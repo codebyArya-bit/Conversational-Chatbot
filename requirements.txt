@@ -18,6 +18,7 @@ Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.1
 WTForms==3.1.2
 Flask-Migrate==4.0.7
+python-dotenv==1.0.0
 Werkzeug>=3.1.0
 fonttools==4.56.0
 fsspec==2025.7.0

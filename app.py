@@ -8,6 +8,13 @@ import logging
 from datetime import datetime
 from typing import List, Tuple, Optional
 
+# Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv not installed, skip loading .env file
+
 try:
     try:
         from flask import Flask, request, jsonify, render_template, redirect, url_for, flash, session  # type: ignore
