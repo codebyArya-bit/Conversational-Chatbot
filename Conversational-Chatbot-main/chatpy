@@ -1,0 +1,77 @@
+# Install required packages
+# Uncomment and run these commands if you're working in a new environment
+# !pip install gradio
+# !pip install requests
+
+import os
+import requests
+import gradio as gr
+
+# ---- Setup ----
+# Set your OpenRouter API Key here
+os.environ["OPENROUTER_API_KEY"] = "your_openrouter_api_key"  # Replace with your actual API key
+
+# ---- Prompt Template & Memory Simulation ----
+template = """You are a helpful assistant to answer user queries.
+{chat_history}
+User: {user_message}
+Chatbot:"""
+
+# Initialize the chat history
+chat_history = []
+
+# ---- Function to Format Prompt ----
+def format_prompt(user_message):
+    history_str = "\n".join([f"{role.capitalize()}: {msg}" for role, msg in chat_history])
+    return template.format(chat_history=history_str, user_message=user_message)
+
+# ---- OpenRouter API Call ----
+def call_openrouter_api(prompt):
+    API_KEY = os.environ["OPENROUTER_API_KEY"]
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    # Constructing the API request payload
+    payload = {
+        "model": "meta-llama/llama-4-maverick:free",  # Using LLaMA 4 Maverick (Free)
+        "messages": [
+            {"role": "system", "content": "You are a helpful assistant."},
+            *[
+                {"role": role, "content": msg}
+                for role, msg in chat_history
+            ],
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": 0.7,
+        "max_tokens": 300
+    }
+
+    # Sending the POST request to the OpenRouter API
+    response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
+    if response.status_code == 200:
+        return response.json()["choices"][0]["message"]["content"]
+    else:
+        return f"Error {response.status_code}: {response.text}"
+
+# ---- Response Function ----
+def get_text_response(user_message, history=None):
+    global chat_history
+    prompt = format_prompt(user_message)
+    response = call_openrouter_api(user_message)
+    # Store user input and assistant output in chat history
+    chat_history.append(("user", user_message))
+    chat_history.append(("assistant", response))
+    return response
+
+# ---- Gradio App ----
+demo = gr.ChatInterface(
+    fn=get_text_response,
+    examples=["What's the weather like?", "Tell me a joke.", "What is AI?"],
+    title="Chatbot using LLaMA 4 (Free via OpenRouter)"
+)
+
+# Launch the Gradio interface
+if _name_ == "_main_":
+    demo.launch()

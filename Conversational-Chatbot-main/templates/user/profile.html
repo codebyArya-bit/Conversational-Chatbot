@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - TechEdu Hub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .profile-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-card .icon {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-card .label {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .profile-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            color: #1e293b;
+        }
+
+        .section-content {
+            padding: 1.5rem;
+        }
+
+        .device-item, .ticket-item, .chat-item {
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .device-item:last-child, .ticket-item:last-child, .chat-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .device-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .device-specs {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .primary-badge {
+            background: #10b981;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+
+        .ticket-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .ticket-meta {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-open {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-in-progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-resolved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(107, 114, 128, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .profile-sections {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-graduation-cap"></i> TechEdu Hub
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/device-specs">Device Specs</a></li>
+                <li><a href="/chat-history">Chat History</a></li>
+                <li><a href="/create-ticket">Create Ticket</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <h1>Welcome, {{ user.full_name or user.username }}!</h1>
+            <p>Member since {{ user.created_at.strftime('%B %Y') }}</p>
+        </div>
+
+        <!-- Profile Stats -->
+        <div class="profile-stats">
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-laptop"></i></div>
+                <div class="number">{{ devices|length }}</div>
+                <div class="label">Registered Devices</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-comments"></i></div>
+                <div class="number">{{ chat_sessions|length }}</div>
+                <div class="label">Chat Sessions</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-ticket-alt"></i></div>
+                <div class="number">{{ tickets|length }}</div>
+                <div class="label">Support Tickets</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-check-circle"></i></div>
+                <div class="number">{{ tickets|selectattr('status', 'equalto', 'resolved')|list|length }}</div>
+                <div class="label">Resolved Issues</div>
+            </div>
+        </div>
+
+        <!-- Profile Sections -->
+        <div class="profile-sections">
+            <!-- Devices Section -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-laptop"></i> My Devices</h3>
+                    <a href="/device-specs" class="btn">Add Device</a>
+                </div>
+                <div class="section-content">
+                    {% if devices %}
+                        {% for device in devices %}
+                            <div class="device-item">
+                                <div class="device-name">
+                                    {{ device.device_name }}
+                                    {% if device.is_primary %}
+                                        <span class="primary-badge">Primary</span>
+                                    {% endif %}
+                                </div>
+                                <div class="device-specs">
+                                    <strong>Type:</strong> {{ device.device_type }}<br>
+                                    <strong>OS:</strong> {{ device.operating_system }}<br>
+                                    <strong>RAM:</strong> {{ device.ram }}<br>
+                                    <strong>Storage:</strong> {{ device.storage }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-laptop"></i>
+                            <p>No devices registered yet.</p>
+                            <a href="/device-specs" class="btn">Add Your First Device</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Support Tickets Section -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-ticket-alt"></i> Support Tickets</h3>
+                    <a href="/create-ticket" class="btn">New Ticket</a>
+                </div>
+                <div class="section-content">
+                    {% if tickets %}
+                        {% for ticket in tickets[:5] %}
+                            <div class="ticket-item">
+                                <div class="ticket-title">{{ ticket.title }}</div>
+                                <div class="ticket-meta">
+                                    <span class="status-badge status-{{ ticket.status }}">{{ ticket.status.title() }}</span>
+                                    <span style="margin-left: 1rem;">{{ ticket.created_at.strftime('%b %d, %Y') }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% if tickets|length > 5 %}
+                            <p style="text-align: center; margin-top: 1rem;">
+                                <a href="#" class="btn btn-secondary">View All Tickets</a>
+                            </p>
+                        {% endif %}
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-ticket-alt"></i>
+                            <p>No support tickets yet.</p>
+                            <a href="/create-ticket" class="btn">Create Your First Ticket</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Chat Sessions -->
+        <div class="section-card" style="margin-top: 2rem;">
+            <div class="section-header">
+                <h3><i class="fas fa-comments"></i> Recent Chat Sessions</h3>
+                <a href="/chat-history" class="btn">View All</a>
+            </div>
+            <div class="section-content">
+                {% if chat_sessions %}
+                    {% for session in chat_sessions %}
+                        <div class="chat-item">
+                            <div class="device-name">
+                                <a href="/chat-session/{{ session.id }}" style="text-decoration: none; color: #667eea;">
+                                    {{ session.title or 'Chat Session' }}
+                                </a>
+                                {% if session.escalated_to_support %}
+                                    <span class="status-badge status-in-progress">Escalated</span>
+                                {% endif %}
+                            </div>
+                            <div class="device-specs">
+                                Started: {{ session.created_at.strftime('%b %d, %Y at %I:%M %p') }}<br>
+                                Last updated: {{ session.updated_at.strftime('%b %d, %Y at %I:%M %p') }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-comments"></i>
+                        <p>No chat sessions yet.</p>
+                        <a href="/#chatbot" class="btn">Start Chatting</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

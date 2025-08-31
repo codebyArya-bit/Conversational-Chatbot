@@ -16,11 +16,3 @@ services:
       name: chatbot-disk
       mountPath: /opt/render/project/src/instance
       sizeGB: 1
-  
-  - type: static
-    name: chatbot-frontend
-    buildCommand: cd frontend && npm ci && npm run build
-    staticPublishPath: ./frontend/build
-    envVars:
-      - key: REACT_APP_API_URL
-        value: https://conversational-chatbot.onrender.com

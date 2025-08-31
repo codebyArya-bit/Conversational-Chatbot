@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Support Ticket - TechEdu Hub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .main-content {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section h3 {
+            font-family: 'Poppins', sans-serif;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f3f4f6;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group .error {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .priority-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .priority-option {
+            position: relative;
+        }
+
+        .priority-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .priority-label {
+            display: block;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .priority-option input[type="radio"]:checked + .priority-label {
+            border-color: #ef4444;
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .priority-low .priority-label {
+            border-color: #10b981;
+        }
+
+        .priority-low input[type="radio"]:checked + .priority-label {
+            border-color: #10b981;
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .priority-medium .priority-label {
+            border-color: #f59e0b;
+        }
+
+        .priority-medium input[type="radio"]:checked + .priority-label {
+            border-color: #f59e0b;
+            background: #fffbeb;
+            color: #d97706;
+        }
+
+        .device-info {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .device-info h4 {
+            color: #374151;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .device-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .spec-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .spec-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .spec-value {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .help-text {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+            transform: translateY(-2px);
+        }
+
+        .flash-messages {
+            margin-bottom: 2rem;
+        }
+
+        .flash-message {
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .flash-message.success {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .flash-message.error {
+            background-color: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .flash-message.info {
+            background-color: #dbeafe;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .priority-options {
+                grid-template-columns: 1fr;
+            }
+
+            .device-specs {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-graduation-cap"></i> TechEdu Hub
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/chat-history">Chat History</a></li>
+                <li><a href="/device-specs">Device Specs</a></li>
+                <li><a href="/create-ticket" style="color: #ef4444;">Create Ticket</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="fas fa-ticket-alt"></i> Create Support Ticket</h1>
+            <p>Get help from our technical support team</p>
+        </div>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Form -->
+        <div class="form-container">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                
+                <!-- Basic Information -->
+                <div class="form-section">
+                    <h3><i class="fas fa-info-circle"></i> Basic Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            {{ form.subject.label(class="form-label") }}
+                            <span class="required">*</span>
+                            {{ form.subject(class="form-control", placeholder="Brief description of your issue") }}
+                            {% if form.subject.errors %}
+                                {% for error in form.subject.errors %}
+                                    <div class="error">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.category.label(class="form-label") }}
+                            <span class="required">*</span>
+                            {{ form.category(class="form-control") }}
+                            {% if form.category.errors %}
+                                {% for error in form.category.errors %}
+                                    <div class="error">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.priority.label(class="form-label") }}
+                        <span class="required">*</span>
+                        <div class="priority-options">
+                            <div class="priority-option priority-low">
+                                {{ form.priority(value="low") }}
+                                <label class="priority-label" for="priority-0">
+                                    <i class="fas fa-circle" style="color: #10b981;"></i><br>
+                                    <strong>Low</strong><br>
+                                    <small>General questions</small>
+                                </label>
+                            </div>
+                            <div class="priority-option priority-medium">
+                                {{ form.priority(value="medium") }}
+                                <label class="priority-label" for="priority-1">
+                                    <i class="fas fa-circle" style="color: #f59e0b;"></i><br>
+                                    <strong>Medium</strong><br>
+                                    <small>Minor issues</small>
+                                </label>
+                            </div>
+                            <div class="priority-option priority-high">
+                                {{ form.priority(value="high") }}
+                                <label class="priority-label" for="priority-2">
+                                    <i class="fas fa-circle" style="color: #ef4444;"></i><br>
+                                    <strong>High</strong><br>
+                                    <small>Urgent problems</small>
+                                </label>
+                            </div>
+                        </div>
+                        {% if form.priority.errors %}
+                            {% for error in form.priority.errors %}
+                                <div class="error">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group full-width">
+                        {{ form.description.label(class="form-label") }}
+                        <span class="required">*</span>
+                        {{ form.description(class="form-control", placeholder="Please provide a detailed description of your issue, including any error messages and steps you've already tried...") }}
+                        {% if form.description.errors %}
+                            {% for error in form.description.errors %}
+                                <div class="error">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="help-text">The more details you provide, the better we can assist you</div>
+                    </div>
+                </div>
+
+                <!-- Device Information -->
+                {% if primary_device %}
+                    <div class="form-section">
+                        <h3><i class="fas fa-laptop"></i> Device Information</h3>
+                        <div class="device-info">
+                            <h4><i class="fas fa-desktop"></i> {{ primary_device.device_name }}</h4>
+                            <div class="device-specs">
+                                <div class="spec-item">
+                                    <div class="spec-label">Device Type</div>
+                                    <div class="spec-value">{{ primary_device.device_type }}</div>
+                                </div>
+                                <div class="spec-item">
+                                    <div class="spec-label">Operating System</div>
+                                    <div class="spec-value">{{ primary_device.operating_system }}</div>
+                                </div>
+                                {% if primary_device.processor %}
+                                    <div class="spec-item">
+                                        <div class="spec-label">Processor</div>
+                                        <div class="spec-value">{{ primary_device.processor }}</div>
+                                    </div>
+                                {% endif %}
+                                {% if primary_device.ram %}
+                                    <div class="spec-item">
+                                        <div class="spec-label">RAM</div>
+                                        <div class="spec-value">{{ primary_device.ram }}</div>
+                                    </div>
+                                {% endif %}
+                                {% if primary_device.storage %}
+                                    <div class="spec-item">
+                                        <div class="spec-label">Storage</div>
+                                        <div class="spec-value">{{ primary_device.storage }}</div>
+                                    </div>
+                                {% endif %}
+                                {% if primary_device.graphics_card %}
+                                    <div class="spec-item">
+                                        <div class="spec-label">Graphics Card</div>
+                                        <div class="spec-value">{{ primary_device.graphics_card }}</div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="help-text" style="margin-top: 1rem;">
+                                This information will help our support team understand your setup. 
+                                <a href="/device-specs" style="color: #667eea;">Manage your devices</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="form-section">
+                        <h3><i class="fas fa-laptop"></i> Device Information</h3>
+                        <div class="device-info">
+                            <p style="color: #6b7280; text-align: center; padding: 2rem;">
+                                <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+                                No device information found. Adding your device specifications will help our support team assist you better.
+                            </p>
+                            <div style="text-align: center;">
+                                <a href="/device-specs" class="btn btn-secondary">
+                                    <i class="fas fa-plus"></i> Add Device Information
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Additional Information -->
+                <div class="form-section">
+                    <h3><i class="fas fa-plus-circle"></i> Additional Information</h3>
+                    <div class="form-group">
+                        {{ form.steps_taken.label(class="form-label") }}
+                        {{ form.steps_taken(class="form-control", placeholder="List any troubleshooting steps you've already tried...") }}
+                        {% if form.steps_taken.errors %}
+                            {% for error in form.steps_taken.errors %}
+                                <div class="error">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="help-text">This helps us avoid suggesting solutions you've already attempted</div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.expected_outcome.label(class="form-label") }}
+                        {{ form.expected_outcome(class="form-control", placeholder="What would you like to achieve or what should be working?") }}
+                        {% if form.expected_outcome.errors %}
+                            {% for error in form.expected_outcome.errors %}
+                                <div class="error">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a href="/profile" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Profile
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Submit Ticket
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Auto-resize textareas
+        document.querySelectorAll('textarea').forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+        });
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const requiredFields = ['subject', 'category', 'priority', 'description'];
+            let isValid = true;
+            
+            requiredFields.forEach(fieldName => {
+                const field = document.querySelector(`[name="${fieldName}"]`);
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#ef4444';
+                } else {
+                    field.style.borderColor = '#e5e7eb';
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('Please fill in all required fields.');
+            }
+        });
+    </script>
+</body>
+</html>

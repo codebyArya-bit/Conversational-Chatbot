@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - TechEdu Hub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff08" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .page-header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Resource Categories */
+        .resource-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-filter {
+            background: #f1f5f9;
+            color: #64748b;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .category-filter.active, .category-filter:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        /* Resources Grid */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .resource-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .resource-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .resource-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-type {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .resource-content {
+            padding: 2rem;
+        }
+
+        .resource-description {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .resource-size {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resource-downloads {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Featured Resources */
+        .featured-section {
+            background: #f8fafc;
+            padding: 80px 0;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .featured-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+        }
+
+        .featured-card::before {
+            content: 'Featured';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .featured-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .featured-card h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .featured-card p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .featured-link:hover {
+            color: #764ba2;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-categories {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-graduation-cap"></i> TechEdu Hub
+            </a>
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/#theory" class="nav-link">Theory</a></li>
+                <li><a href="/#chatbot" class="nav-link">StudyBot</a></li>
+                <li><a href="/about" class="nav-link">About</a></li>
+                <li><a href="/services" class="nav-link">Services</a></li>
+                <li><a href="/resources" class="nav-link active">Resources</a></li>
+                <li><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1>Learning Resources</h1>
+            <p>Comprehensive collection of guides, tutorials, and tools to accelerate your learning journey</p>
+        </div>
+    </section>
+
+    <!-- Main Resources -->
+    <section class="main-content">
+        <div class="container">
+            <h2 class="section-title">Browse Resources</h2>
+            <p class="section-subtitle">Filter by category to find exactly what you need for your studies</p>
+            
+            <!-- Category Filters -->
+            <div class="resource-categories">
+                <button class="category-filter active" data-category="all">All Resources</button>
+                <button class="category-filter" data-category="networking">Networking</button>
+                <button class="category-filter" data-category="programming">Programming</button>
+                <button class="category-filter" data-category="database">Database</button>
+                <button class="category-filter" data-category="security">Security</button>
+                <button class="category-filter" data-category="cloud">Cloud</button>
+                <button class="category-filter" data-category="ai">AI/ML</button>
+            </div>
+            
+            <!-- Resources Grid -->
+            <div class="resources-grid">
+                <div class="resource-card" data-category="networking">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Network Fundamentals Guide</h3>
+                        <div class="resource-type">PDF Guide</div>
+                    </div>
+                    <div class="resource-content">
+                        <p class="resource-description">Comprehensive guide covering OSI model, TCP/IP, subnetting, and network troubleshooting techniques for students.</p>
+                        <div class="resource-meta">
+                            <div class="resource-size">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>2.5 MB</span>
+                            </div>
+                            <div class="resource-downloads">
+                                <i class="fas fa-download"></i>
+                                <span>1,234 downloads</span>
+                            </div>
+                        </div>
+                        <a href="#" class="download-btn">
+                            <i class="fas fa-download"></i>
+                            Download PDF
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="programming">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Python Programming Cheat Sheet</h3>
+                        <div class="resource-type">Quick Reference</div>
+                    </div>
+                    <div class="resource-content">
+                        <p class="resource-description">Essential Python syntax, functions, and libraries reference sheet perfect for quick lookups during coding sessions.</p>
+                        <div class="resource-meta">
+                            <div class="resource-size">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>1.2 MB</span>
+                            </div>
+                            <div class="resource-downloads">
+                                <i class="fas fa-download"></i>
+                                <span>2,567 downloads</span>
+                            </div>
+                        </div>
+                        <a href="#" class="download-btn">
+                            <i class="fas fa-download"></i>
+                            Download PDF
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="database">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>SQL Query Examples</h3>
+                        <div class="resource-type">Code Examples</div>
+                    </div>
+                    <div class="resource-content">
+                        <p class="resource-description">Collection of practical SQL queries with explanations, covering joins, subqueries, and database optimization.</p>
+                        <div class="resource-meta">
+                            <div class="resource-size">
+                                <i class="fas fa-file-code"></i>
+                                <span>800 KB</span>
+                            </div>
+                            <div class="resource-downloads">
+                                <i class="fas fa-download"></i>
+                                <span>987 downloads</span>
+                            </div>
+                        </div>
+                        <a href="#" class="download-btn">
+                            <i class="fas fa-download"></i>
+                            Download ZIP
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="security">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Cybersecurity Basics</h3>
+                        <div class="resource-type">Interactive Tutorial</div>
+                    </div>
+                    <div class="resource-content">
+                        <p class="resource-description">Learn essential cybersecurity concepts including encryption, authentication, and common attack vectors.</p>
+                        <div class="resource-meta">
+                            <div class="resource-size">
+                                <i class="fas fa-globe"></i>
+                                <span>Online</span>
+                            </div>
+                            <div class="resource-downloads">
+                                <i class="fas fa-eye"></i>
+                                <span>3,456 views</span>
+                            </div>
+                        </div>
+                        <a href="#" class="download-btn">
+                            <i class="fas fa-external-link-alt"></i>
+                            Start Tutorial
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="cloud">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3>Cloud Computing Guide</h3>
+                        <div class="resource-type">Video Series</div>
+                    </div>
+                    <div class="resource-content">
+                        <p class="resource-description">Complete video series covering AWS, Azure, and Google Cloud fundamentals with hands-on examples.</p>
+                        <div class="resource-meta">
+                            <div class="resource-size">
+                                <i class="fas fa-video"></i>
+                                <span>4 hours</span>
+                            </div>
+                            <div class="resource-downloads">
+                                <i class="fas fa-play"></i>
+                                <span>1,789 views</span>
+                            </div>
+                        </div>
+                        <a href="#" class="download-btn">
+                            <i class="fas fa-play"></i>
+                            Watch Videos
+                        </a>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="ai">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Machine Learning Toolkit</h3>
+                        <div class="resource-type">Software Package</div>
+                    </div>
+                    <div class="resource-content">
+                        <p class="resource-description">Pre-configured development environment with popular ML libraries and sample datasets for beginners.</p>
+                        <div class="resource-meta">
+                            <div class="resource-size">
+                                <i class="fas fa-file-archive"></i>
+                                <span>150 MB</span>
+                            </div>
+                            <div class="resource-downloads">
+                                <i class="fas fa-download"></i>
+                                <span>654 downloads</span>
+                            </div>
+                        </div>
+                        <a href="#" class="download-btn">
+                            <i class="fas fa-download"></i>
+                            Download Package
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Resources -->
+    <section class="featured-section">
+        <div class="container">
+            <h2 class="section-title">Featured Resources</h2>
+            <p class="section-subtitle">Hand-picked resources that our community loves most</p>
+            
+            <div class="featured-grid">
+                <div class="featured-card">
+                    <div class="featured-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h4>Complete Study Planner</h4>
+                    <p>Organize your learning journey with our comprehensive study planner template, including goal tracking and progress monitoring.</p>
+                    <a href="#" class="featured-link">
+                        Download Template <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="featured-card">
+                    <div class="featured-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h4>Developer Toolkit</h4>
+                    <p>Essential tools and utilities every student developer needs, including code editors, version control, and debugging tools.</p>
+                    <a href="#" class="featured-link">
+                        Get Toolkit <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="featured-card">
+                    <div class="featured-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h4>Career Preparation Guide</h4>
+                    <p>Comprehensive guide to preparing for tech interviews, building portfolios, and landing your first job in technology.</p>
+                    <a href="#" class="featured-link">
+                        Read Guide <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="featured-card">
+                    <div class="featured-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4>Study Group Templates</h4>
+                    <p>Ready-to-use templates for organizing effective study groups, including meeting agendas and collaboration tools.</p>
+                    <a href="#" class="featured-link">
+                        Download Templates <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/services">Services</a>
+                <a href="/resources">Resources</a>
+                <a href="/contact">Contact</a>
+            </div>
+            <p>&copy; 2024 TechEdu Hub. Empowering students through technology and education.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Category filtering
+        const categoryFilters = document.querySelectorAll('.category-filter');
+        const resourceCards = document.querySelectorAll('.resource-card');
+
+        categoryFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                // Remove active class from all filters
+                categoryFilters.forEach(f => f.classList.remove('active'));
+                // Add active class to clicked filter
+                filter.classList.add('active');
+
+                const category = filter.getAttribute('data-category');
+
+                resourceCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

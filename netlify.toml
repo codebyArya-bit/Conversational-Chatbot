@@ -1,0 +1,23 @@
+[build]
+  base = "frontend/"
+  publish = "frontend/build"
+  command = "npm run build"
+
+[build.environment]
+  REACT_APP_API_URL = "https://conversational-chatbot.onrender.com"
+  REACT_APP_DEBUG = "false"
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production.environment]
+  REACT_APP_API_URL = "https://conversational-chatbot.onrender.com"
+
+[context.deploy-preview.environment]
+  REACT_APP_API_URL = "https://conversational-chatbot.onrender.com"
+
+[context.branch-deploy.environment]
+  REACT_APP_API_URL = "https://conversational-chatbot.onrender.com"

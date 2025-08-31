@@ -1,0 +1,87 @@
+# Vercel ignore file
+
+# Development files
+.env
+.env.local
+.env.development
+.env.test
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+PYMANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+DEPLOYMENT.md
+
+# Deployment files
+Procfile
+render.yaml
+deploy.bat
+
+# Frontend (React app)
+frontend/
+
+# Duplicate directory
+Conversational-Chatbot-main/
+
+# Local database (will use environment variable for production)
+instance/
+
+# Cache directory
+.cache/
+
+# Logs
+*.log
+
+# Other Python files not needed for serverless
+main.py
+run.py
+api.py
+config.py
