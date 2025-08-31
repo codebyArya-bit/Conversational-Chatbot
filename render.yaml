@@ -23,4 +23,4 @@ services:
     staticPublishPath: ./frontend/build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://conversational-chatbot.onrender.com
+        value: https://conversational-chatbot-XXXX.onrender.com
