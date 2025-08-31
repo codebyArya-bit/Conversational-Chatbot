@@ -1,7 +1,9 @@
-# Vercel Deployment Guide
+# Vercel Frontend Deployment Guide
 
 ## Overview
-This guide will help you deploy both the frontend and backend of the Conversational Chatbot to Vercel.
+**Note**: This project now uses hybrid deployment (Backend on Render + Frontend on Vercel). For complete deployment instructions, see `HYBRID_DEPLOYMENT_GUIDE.md`.
+
+This guide explains how to deploy only the frontend React application to Vercel.
 
 ## Prerequisites
 - Vercel account (free tier available)
@@ -27,7 +29,7 @@ vercel --prod
    - Set up and deploy? **Y**
    - Which scope? Select your account
    - Link to existing project? **N** (for first deployment)
-   - Project name: `conversational-chatbot-black`
+   - Project name: `frontend-khaki-sigma`
    - Directory: `.` (current directory)
    - Override settings? **N**
 
@@ -40,7 +42,7 @@ After deployment, add these environment variables in Vercel dashboard:
 
 ## Frontend Deployment
 
-### Option 1: Deploy to `conversational-chatbot-black.vercel.app`
+### Deploy Frontend to Vercel
 1. Navigate to the frontend directory:
 ```bash
 cd frontend
@@ -51,18 +53,9 @@ cd frontend
 vercel --prod
 ```
 
-3. When prompted for project name, use: `conversational-chatbot-black`
+3. When prompted for project name, use: `frontend-khaki-sigma`
 
-### Option 2: Deploy to `frontend-khaki-sigma.vercel.app`
-1. Navigate to the frontend directory:
-```bash
-cd frontend
-```
-
-2. Deploy with specific project name:
-```bash
-vercel --prod --name frontend-khaki-sigma
-```
+4. Deployment will be available at: `https://frontend-khaki-sigma.vercel.app`
 
 ## Configuration Files
 
@@ -109,21 +102,19 @@ vercel --prod --name frontend-khaki-sigma
 ```
 
 ## Expected URLs
-- **Backend API**: `https://conversational-chatbot-black.vercel.app/api/*`
+- **Backend API**: `https://conversational-chatbot.onrender.com/api/*` (Deployed on Render)
 - **Frontend**: 
-  - Option 1: `https://conversational-chatbot-black.vercel.app/`
-  - Option 2: `https://frontend-khaki-sigma.vercel.app/`
+  - **Frontend**: `https://frontend-khaki-sigma.vercel.app/`
 
 ## Testing the Deployment
 
 ### 1. Test Backend API
 ```bash
-curl https://conversational-chatbot-black.vercel.app/api/health
+curl https://conversational-chatbot.onrender.com/health
 ```
 
 ### 2. Test Frontend
 Open your browser and navigate to:
-- `https://conversational-chatbot-black.vercel.app/` OR
 - `https://frontend-khaki-sigma.vercel.app/`
 
 ### 3. Test Full Integration

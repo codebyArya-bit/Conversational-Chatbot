@@ -52,18 +52,13 @@ vercel login
 
 ### 2. Deploy Frontend to Vercel
 
-#### Option A: Deploy to `conversational-chatbot-black.vercel.app`
-```bash
-cd frontend
-vercel --prod
-```
-- Project name: `conversational-chatbot-black`
-
-#### Option B: Deploy to `frontend-khaki-sigma.vercel.app`
+#### Deploy to Vercel
 ```bash
 cd frontend
 vercel --prod --name frontend-khaki-sigma
 ```
+- Project name: `frontend-khaki-sigma`
+- URL: `https://frontend-khaki-sigma.vercel.app`
 
 ### 3. Vercel Configuration
 The frontend is configured with:
@@ -126,8 +121,8 @@ REACT_APP_VERSION=1.0.0
 
 ### Step 2: Deploy Frontend to Vercel
 1. Navigate to frontend directory: `cd frontend`
-2. Deploy: `vercel --prod`
-3. Choose your preferred URL option
+2. Deploy: `vercel --prod --name frontend-khaki-sigma`
+3. Confirm deployment to `https://frontend-khaki-sigma.vercel.app`
 4. Wait for deployment to complete
 
 ### Step 3: Verify Connection
@@ -144,8 +139,7 @@ REACT_APP_VERSION=1.0.0
 - **Chat API**: `https://conversational-chatbot.onrender.com/api/chat`
 
 ### Frontend (Vercel)
-- **Option 1**: `https://conversational-chatbot-black.vercel.app`
-- **Option 2**: `https://frontend-khaki-sigma.vercel.app`
+- **Primary URL**: `https://frontend-khaki-sigma.vercel.app`
 
 ## Part 6: Testing the Full Stack
 
