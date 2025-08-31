@@ -1,0 +1,23 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="32" cy="32" r="30" fill="#3B82F6" stroke="#1E40AF" stroke-width="2"/>
+  
+  <!-- Chat Bubble -->
+  <path d="M18 22C18 19.7909 19.7909 18 22 18H42C44.2091 18 46 19.7909 46 22V32C46 34.2091 44.2091 36 42 36H28L22 42V36H22C19.7909 36 18 34.2091 18 32V22Z" fill="white"/>
+  
+  <!-- Chat Lines -->
+  <rect x="24" y="24" width="16" height="2" rx="1" fill="#3B82F6"/>
+  <rect x="24" y="28" width="12" height="2" rx="1" fill="#6B7280"/>
+  <rect x="24" y="32" width="14" height="2" rx="1" fill="#6B7280"/>
+  
+  <!-- AI Sparkle -->
+  <g transform="translate(38, 20)">
+    <path d="M4 0L4.5 2.5L7 3L4.5 3.5L4 6L3.5 3.5L1 3L3.5 2.5L4 0Z" fill="#F59E0B"/>
+  </g>
+  
+  <!-- Support Icon -->
+  <g transform="translate(20, 44)">
+    <circle cx="4" cy="4" r="3" fill="#10B981" stroke="white" stroke-width="1"/>
+    <path d="M2.5 4L3.5 5L5.5 3" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
